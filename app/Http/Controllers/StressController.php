@@ -31,7 +31,7 @@ class StressController extends Controller
 
         // Construct the command
         $command = "stress --cpu 1 --timeout {$stressTime}"; // Customize as per your needs
-dd($command);
+
         // Execute the command
         exec($command, $output, $return_var);
 
