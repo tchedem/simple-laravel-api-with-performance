@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->string("filename", 255);
             $table->string("filepath", 255);
-            $table->number("filesize", 255);
+            $table->double("filesize", 255);
 
             $table->timestamps();
 

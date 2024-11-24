@@ -18,6 +18,7 @@ class StressController extends Controller
 
     public function stressMethod (Request $request) {
 
+// dd($request->all());
         $validator = Validator::make($request->all(), [
             'stress_time' => 'required|integer|min:1', // Validate that stress_time is a positive integer
         ]);
@@ -31,7 +32,7 @@ class StressController extends Controller
 
         // Construct the command
         $command = "stress --cpu 1 --timeout {$stressTime}"; // Customize as per your needs
-
+dump($command);
         // Execute the command
         exec($command, $output, $return_var);
 
