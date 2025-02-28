@@ -10,7 +10,8 @@
         "laravel/framework": "^10.10",
         "laravel/horizon": "^5.30",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "predis/predis": "^2.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
