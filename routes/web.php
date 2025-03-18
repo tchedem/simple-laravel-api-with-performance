@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SlugifierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return response()->json([
-        'message' => "Welcome to our API " . env("APP_VERSION", "")
-    ]);
-    return view('welcome');
-});
+
+    return view('home');
+    return view('services');
+
+})->name('home');
+
+// Route::get('/', function () {
+//     return response()->json([
+//         'message' => "Welcome to our API " . env("APP_VERSION", "")
+//     ]);
+//     return view('welcome');
+// });
+
+// Route::get('service')->name('services.index');
+
+// Services
+
+// Slugifier
+Route::get('slugifier', [SlugifierController::class, 'index'])->name('slugifier.index');
+Route::post('slugifier', [SlugifierController::class, 'create'])->name('slugifier.create');
