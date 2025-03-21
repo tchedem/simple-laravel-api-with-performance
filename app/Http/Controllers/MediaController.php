@@ -9,6 +9,8 @@ class MediaController extends Controller
 {
     public function saveMedia (Request $request) {
 
+        sleep(180);
+
         if ( $request->hasFile('files') )  {
 
             $files = $request->file('files') ?? [];
@@ -30,7 +32,7 @@ class MediaController extends Controller
             'data' => '',
             'message' => 'Files saved'
         ]);
-        
+
         dd($request->hasFile('files'));
 
 

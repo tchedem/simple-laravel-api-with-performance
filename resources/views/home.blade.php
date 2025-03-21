@@ -14,5 +14,15 @@
         {{-- <li><a href="#">Uuid generator</a></li> --}}
         {{-- <li></li> --}}
     </ul>
+
+    <hr/>
+
+    <h3>Others Services:</h3>
+    <ul>
+        <li><a href="{{ route('file-uploader.index') }}">Large File uploader</a></li>
+        {{-- <li><a href="#">Uuid generator</a></li> --}}
+        {{-- <li></li> --}}
+    </ul>
+
 </body>
 </html>
