@@ -18,13 +18,16 @@ class StressController extends Controller
 
     public function stressMethod (Request $request) {
 
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
-            'stress_time' => 'required|integer|min:1', // Validate that stress_time is a positive integer
+            'stress_time' => 'required|integer|min:1|max:100', // Validate that stress_time is a positive integer
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
+
+        $preExecDate = date('Y-m-d H:i:s');
 
         // Get the stress time from the request
         $stressTime = $request->stress_time;
@@ -35,9 +38,16 @@ class StressController extends Controller
         // Execute the command
         exec($command, $output, $return_var);
 
+        $postExecDate = date('Y-m-d H:i:s');
+
         // Return the command output and status
         if ($return_var === 0) {
-            return response()->json(['success' => true, 'output' => $output]);
+            return response()->json([
+                'success' => true,
+                'pre execution date' => $preExecDate,
+                'post execution date' => $postExecDate,
+                'output' => $output]
+            );
         } else {
             return response()->json(['success' => false, 'error' => 'Command execution failed.'], 500);
         }

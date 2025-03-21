@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/stress', [StressController::class, 'stressMethod']);
+// Route::post('/stress', [StressController::class, 'stressMethod']);
+// Route::get('/stress', [StressController::class, 'stressMethod']);
+Route::match(['get','post'], '/stress', [StressController::class, 'stressMethod']);
 
 Route::post('/media', [MediaController::class, 'saveMedia']);
 
