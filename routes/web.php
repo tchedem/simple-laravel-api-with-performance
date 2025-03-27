@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\FileUploaderController;
 use App\Http\Controllers\SlugifierController;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Node\Stmt\Return_;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,10 +35,7 @@ Route::get('/', function () {
 // Services
 
 // Slugifier
-Route::get('slugifier', [SlugifierController::class, 'index'])->name('slugifier.index');
-Route::post('slugifier', [SlugifierController::class, 'create'])->name('slugifier.create');
+Route::get('slugifier', [SlugifierController::class, 'create'])->name('slugifier.create');
+Route::post('slugifier', [SlugifierController::class, 'store'])->name('slugifier.store');
 
-
-Route::get('test-upload', function () {
-    return view('test-upload');
-});
+Route::get('upload', [FileUploaderController::class, 'create'])->name('upload.create');

@@ -10,7 +10,7 @@
 
     <h3>Our tools:</h3>
     <ul>
-        <li><a href="{{ route('slugifier.index') }}">Slugifier</a></li>
+        <li><a href="{{ route('slugifier.create') }}">Slugifier</a></li>
         {{-- <li><a href="#">Uuid generator</a></li> --}}
         {{-- <li></li> --}}
     </ul>
@@ -19,7 +19,7 @@
 
     <h3>Others Services:</h3>
     <ul>
-        <li><a href="{{ route('file-uploader.index') }}">Large File uploader</a></li>
+        <li><a href="{{ route('upload.create') }}">Large File uploader</a></li>
         {{-- <li><a href="#">Uuid generator</a></li> --}}
         {{-- <li></li> --}}
     </ul>
