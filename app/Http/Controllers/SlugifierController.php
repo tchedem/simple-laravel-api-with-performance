@@ -12,7 +12,7 @@ class SlugifierController extends Controller
      */
     public function index()
     {
-        return view('slugifier');
+        //
     }
 
     /**
@@ -20,7 +20,15 @@ class SlugifierController extends Controller
      */
     public function create(Request $request)
     {
-        //
+        return view('slugifier');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+
         $default_separator = "-";
 
         $separator = $request->separator ?? $default_separator;
@@ -29,15 +37,6 @@ class SlugifierController extends Controller
 
         // return view('slugify-result', ['slugify_string' => $slugify_string]);
         return view('slugifier', ['slugify_string' => $slugify_string]);
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

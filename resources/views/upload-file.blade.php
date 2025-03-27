@@ -11,6 +11,8 @@
     <button onclick="startUpload()">Upload</button>
     <p id="status"></p>
 
+    <button><a href="{{ route('home') }}">Back</a></button>
+
     <script>
         const apiUrl = 'http://127.0.0.1:8000/api/upload'; // Change this to your API URL
         // const chunkSize = 1024 * 1024; // 1MB chunks in Bytes

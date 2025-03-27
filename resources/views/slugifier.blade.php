@@ -10,7 +10,7 @@
 
     <h4>Slugifier</h4>
 
-    <form action="{{ route('slugifier.create') }}" method="post">
+    <form action="{{ route('slugifier.store') }}" method="post">
         @csrf
         <div>
             <label for="string">Text</label>
