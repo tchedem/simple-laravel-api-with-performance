@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChunkUploadController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\StressController;
 use Illuminate\Http\Request;
@@ -24,4 +25,11 @@ Route::post('/media', [MediaController::class, 'saveMedia']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('upload')->group(function () {
+    Route::post('init', [ChunkUploadController::class, 'initUpload']);
+    Route::post('chunk', [ChunkUploadController::class, 'uploadChunk']);
+    Route::get('status', [ChunkUploadController::class, 'checkStatus']);
+    Route::post('merge', [ChunkUploadController::class, 'mergeChunks']);
 });

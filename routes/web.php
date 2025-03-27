@@ -35,3 +35,8 @@ Route::get('/', function () {
 // Slugifier
 Route::get('slugifier', [SlugifierController::class, 'index'])->name('slugifier.index');
 Route::post('slugifier', [SlugifierController::class, 'create'])->name('slugifier.create');
+
+
+Route::get('test-upload', function () {
+    return view('test-upload');
+});
