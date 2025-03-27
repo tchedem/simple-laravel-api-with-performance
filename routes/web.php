@@ -40,3 +40,7 @@ Route::post('slugifier', [SlugifierController::class, 'create'])->name('slugifie
 Route::get('test-upload', function () {
     return view('test-upload');
 });
+
+Route::get('test-tailwind', function () {
+    return view('test-tailwind');
+});
