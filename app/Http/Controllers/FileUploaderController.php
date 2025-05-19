@@ -19,7 +19,7 @@ class FileUploaderController extends Controller
      */
     public function create()
     {
-        //
+        return view('upload-file');
     }
 
     /**
