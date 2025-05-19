@@ -1,10 +1,11 @@
 This is a Laravel project
 
-# Disclaimer
+### Disclaimer
 
-The goal of this repo is to try out some simple developments things.
+The goal of this repo is to try out some developments, operations and security things. 
 
-I use it only in my local env to simulate production envs. 
+
+So it serve some purpose like's : simulate production envs. 
 
 
 ### Features
