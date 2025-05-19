@@ -39,3 +39,11 @@ Route::get('slugifier', [SlugifierController::class, 'create'])->name('slugifier
 Route::post('slugifier', [SlugifierController::class, 'store'])->name('slugifier.store');
 
 Route::get('upload', [FileUploaderController::class, 'create'])->name('upload.create');
+
+Route::get('test-upload', function () {
+    return view('test-upload');
+});
+
+Route::get('test-tailwind', function () {
+    return view('test-tailwind');
+});
