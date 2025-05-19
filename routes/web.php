@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\FileUploaderController;
 use App\Http\Controllers\SlugifierController;
+use App\Http\Controllers\TestSomeQueueFeatureController;
+use App\Jobs\TestJob;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Stmt\Return_;
 
@@ -47,3 +49,6 @@ Route::get('test-upload', function () {
 Route::get('test-tailwind', function () {
     return view('test-tailwind');
 });
+
+
+Route::get('test-queue', [TestSomeQueueFeatureController::class, 'runQueueForSixtySeconds']);
