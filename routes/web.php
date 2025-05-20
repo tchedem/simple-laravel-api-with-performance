@@ -47,6 +47,7 @@ Route::get('test-upload', function () {
 });
 
 Route::get('test-tailwind', function () {
+    // return view('test-tailwind-2');
     return view('test-tailwind');
 });
 
