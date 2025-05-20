@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\TestJob;
 use App\Models\TestSomeQueueFeature;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class TestSomeQueueFeatureController extends Controller
 {
@@ -12,6 +13,8 @@ class TestSomeQueueFeatureController extends Controller
     public function runQueueForSixtySeconds() {
 
         $podcast = 66;
+
+        Log::info(["queue_launched_at : ", now()]);
 
         // TestJob::dispatch($podcast)->onQueue('default');
         // TestJob::dispatch($podcast)->onQueue('default');
