@@ -71,6 +71,16 @@ return [
             'after_commit' => false,
         ],
 
+        'test-queue' => [
+            'driver' => 'redis',
+            'connection' => env('REDIS_QUEUE_CONNECTION', 'default'),
+            // 'queue' => env('REDIS_QUEUE', '{default}'),
+            'queue' => 'test-queue',
+            'retry_after' => env('REDIS_QUEUE_RETRY_AFTER', 10),
+            'block_for' => 5,
+            // 'after_commit' => false,
+        ],
+
     ],
 
     /*
