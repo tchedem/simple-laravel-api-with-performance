@@ -26,14 +26,19 @@ use PhpParser\Node\Stmt\Return_;
 
 // })->name('home');
 
+Route::middleware(['throttle:web'])->group(function () {
 
-Route::get('/', function () {
+    Route::get('/', function () {
 
-    return view('learning-lab');
-    return view('home');
-    return view('services');
+        return view('learning-lab');
+        return view('home');
+        return view('services');
 
-})->name('home');
+    })->name('home');
+
+});
+
+
 
 // Route::get('/', function () {
 //     return response()->json([
