@@ -18,12 +18,27 @@ use PhpParser\Node\Stmt\Return_;
 |
 */
 
-Route::get('/', function () {
 
-    return view('home');
-    return view('services');
+// Route::get('html', function () {
 
-})->name('home');
+//     return view('home');
+//     return view('services');
+
+// })->name('home');
+
+
+Route::middleware(['throttle:web'])->group(function () {
+
+    Route::get('/', function () {
+
+        return view('learning-lab');
+        return view('home');
+        return view('services');
+
+    })->name('home');
+
+});
+
 
 // Route::get('/', function () {
 //     return response()->json([
@@ -47,6 +62,7 @@ Route::get('test-upload', function () {
 });
 
 Route::get('test-tailwind', function () {
+    // return view('test-tailwind-2');
     return view('test-tailwind');
 });
 
