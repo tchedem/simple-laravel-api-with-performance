@@ -26,11 +26,8 @@ use PhpParser\Node\Stmt\Return_;
 
 // })->name('home');
 
-dd('oooooo');
 
 Route::middleware(['throttle:web'])->group(function () {
-
-    dd('o');
 
     Route::get('/', function () {
 
@@ -41,7 +38,6 @@ Route::middleware(['throttle:web'])->group(function () {
     })->name('home');
 
 });
-dd('o');
 
 
 // Route::get('/', function () {
