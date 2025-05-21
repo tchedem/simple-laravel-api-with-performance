@@ -18,8 +18,18 @@ use PhpParser\Node\Stmt\Return_;
 |
 */
 
+
+// Route::get('html', function () {
+
+//     return view('home');
+//     return view('services');
+
+// })->name('home');
+
+
 Route::get('/', function () {
 
+    return view('learning-lab');
     return view('home');
     return view('services');
 
