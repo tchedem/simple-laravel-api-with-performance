@@ -68,3 +68,4 @@ Route::get('test-tailwind', function () {
 
 
 Route::get('test-queue', [TestSomeQueueFeatureController::class, 'runQueueForSixtySeconds']);
+Route::get('test-failing-queue', [TestSomeQueueFeatureController::class, 'testFailingQueue']);

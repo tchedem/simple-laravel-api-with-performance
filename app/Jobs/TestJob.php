@@ -28,8 +28,7 @@ class TestJob implements ShouldQueue
     {
 
         sleep(10);
-
         Log::info("Hey");
- 
+
     }
 }
