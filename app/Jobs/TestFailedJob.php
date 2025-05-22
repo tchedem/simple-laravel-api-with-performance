@@ -17,7 +17,7 @@ class TestFailedJob implements ShouldQueue
 
     // Laravel will try this job only once before marking as failed
     public $tries = 3; // Default is usually 1
-    public $backoff = 10; // Delay (in seconds) between attempts
+    public $backoff = 0; // Delay (in seconds) between attempts
     
     /**
      * Execute the job.
