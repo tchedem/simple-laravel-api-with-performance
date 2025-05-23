@@ -16,16 +16,16 @@ class TestFailedJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     // Laravel will try this job only once before marking as failed
-    public $tries = 5; // Default is usually 1
+    public $tries = 1; // Default is usually 1 - If set to 0, it will be running undefinitly
     public $backoff = 1; // Delay (in seconds) between attempts
-    // public $timeout = 60;
+    public $timeout = 1;
 
     /**
      * Execute the job.
      */
     public function handle()
     {
-        // sleep(10);
+        sleep(2);
         try {
             throw new Exception('There is an error here.');
         } catch (\Throwable $th) {
