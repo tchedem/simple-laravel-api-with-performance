@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\TestFailedJob;
 use App\Jobs\TestJob;
 use App\Models\TestSomeQueueFeature;
 use Illuminate\Http\Request;
@@ -24,6 +25,20 @@ class TestSomeQueueFeatureController extends Controller
 
         return response()->json([
             "he" => "d"
+        ]);
+
+    }
+
+    public function testFailingQueue () {
+        // $podcast = 66;
+
+        // Log::info(["queue_launched_at : ", now()]);
+
+        // TestFailedJob::dispatchSync()->onQueue('test-queue');
+        TestFailedJob::dispatch()->onQueue('test-queue');
+
+        return response()->json([
+            'msg' => "tested",
         ]);
 
     }

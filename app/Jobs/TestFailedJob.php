@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Jobs;
+
+use Exception;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
+use Throwable;
+
+class TestFailedJob implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    // Laravel will try this job only once before marking as failed
+    public $tries = 1; // Default is usually 1 - If set to 0, it will be running undefinitly
+    public $backoff = 1; // Delay (in seconds) between attempts
+    public $timeout = 1;
+
+    /**
+     * Execute the job.
+     */
+    public function handle()
+    {
+        sleep(2);
+        try {
+            throw new Exception('There is an error here.');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    /**
+     * Handle a job failure.
+     */
+    public function failed(Throwable $exception): void
+    {
+        Log::channel('job_failures')->error('Custom Failed Job Logging', [
+            'job' => self::class,
+            'message' => $exception->getMessage(),
+        ]);
+    }
+}

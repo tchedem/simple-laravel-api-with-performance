@@ -189,9 +189,10 @@ return [
             'maxTime' => 0,
             'maxJobs' => 0,
             'memory' => 128,
-            'tries' => 1,
-            'timeout' => 60,
+            // 'tries' => 1,        // <-- With horizon, this is used instead of retry_after
+            'timeout' => 5,
             'nice' => 0,
+            'sleep' => 1,        // <-- With horizon, this is used instead of block_for
         ],
     ],
 
@@ -206,7 +207,7 @@ return [
 
         'local' => [
             'supervisor-1' => [
-                'maxProcesses' => 2,
+                'maxProcesses' => 1,
                 // 'balanceMaxShift' => 1,
                 // 'balanceCooldown' => 3,
             ],
