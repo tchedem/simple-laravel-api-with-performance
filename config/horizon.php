@@ -192,7 +192,7 @@ return [
             // 'tries' => 1,        // <-- With horizon, this is used instead of retry_after
             'timeout' => 5,
             'nice' => 0,
-            'sleep' => 5,        // <-- With horizon, this is used instead of block_for
+            'sleep' => 1,        // <-- With horizon, this is used instead of block_for
         ],
     ],
 
