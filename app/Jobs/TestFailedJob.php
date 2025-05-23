@@ -25,7 +25,7 @@ class TestFailedJob implements ShouldQueue
      */
     public function handle()
     {
-        sleep(10);
+        // sleep(10);
         try {
             throw new Exception('There is an error here.');
         } catch (\Throwable $th) {
