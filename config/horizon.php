@@ -185,14 +185,14 @@ return [
             'queue' => ['default', 'test-queue'],
             'balance' => 'auto',
             'autoScalingStrategy' => 'time',
-            'maxProcesses' => 1,
+            'maxProcesses' => 3,
             'maxTime' => 0,
             'maxJobs' => 0,
             'memory' => 128,
             // 'tries' => 1,        // <-- With horizon, this is used instead of retry_after
             'timeout' => 60,
             'nice' => 0,
-            // 'sleep' => 5,        // <-- With horizon, this is used instead of block_for
+            'sleep' => 5,        // <-- With horizon, this is used instead of block_for
         ],
     ],
 
