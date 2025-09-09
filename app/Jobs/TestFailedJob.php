@@ -15,6 +15,13 @@ class TestFailedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+    * Delete the job if its models no longer exist.
+    *
+    * @var bool
+    */
+    public $deleteWhenMissingModels = true;
+
     // Laravel will try this job only once before marking as failed
     public $tries = 1; // Default is usually 1 - If set to 0, it will be running undefinitly
     public $backoff = 1; // Delay (in seconds) between attempts

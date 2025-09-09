@@ -14,7 +14,7 @@
     <button><a href="{{ route('home') }}">Back</a></button>
 
     <script>
-        const apiUrl = 'http://127.0.0.1:8000/api/upload'; // Change this to your API URL
+        const apiUrl = "{{ env('APP_URL', 'http://127.0.0.1:8000') }}/api/upload";
         // const chunkSize = 1024 * 1024; // 1MB chunks in Bytes
         const chunkSize = 10 * 1024 * 1024; // 10MB chunks in Bytes
 
