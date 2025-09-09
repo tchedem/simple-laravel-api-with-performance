@@ -57,9 +57,10 @@
             document.getElementById('status').innerText = mergeData.message;
         }
     </script> --}}
-    
+
     <script>
-        const apiUrl = "{{ config('app.url') }}/api/upload";
+        // const apiUrl = "{{ config('app.url') }}/api/upload";
+        const apiUrl = "/api/upload";
         const chunkSize = 10 * 1024 * 1024; // 10MB chunks
 
         let uploadId = '';
