@@ -18,6 +18,7 @@ yarn-error.log
 /.idea
 /.vscode
 
+gen-ai
 ansible
 notes.md
 notes-design-pattern.md
