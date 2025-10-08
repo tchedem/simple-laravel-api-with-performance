@@ -22,3 +22,5 @@ gen-ai
 ansible
 notes.md
 notes-design-pattern.md
+*.bak
+*.swp
