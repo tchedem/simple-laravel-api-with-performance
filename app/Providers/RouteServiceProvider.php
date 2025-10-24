@@ -32,6 +32,10 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(env("API_ROUTE_RATELIMIT", 20))->by($request->ip());
         });
 
+        RateLimiter::for('algorithms', function (Request $request) {
+            return Limit::perMinute(env("API_ROUTE_RATELIMIT", 20))->by($request->ip());
+        });
+
         $this->routes(function () {
 
             Route::middleware('api')
@@ -45,6 +49,14 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::middleware('api')
+                ->prefix('algorithms')
+                ->group(base_path('routes/algorithms.php'));
+
+            // Route::middleware('api')
+            //     ->prefix('actions')
+            //     ->group(base_path('routes/algorithms.php'));
 
         });
 
