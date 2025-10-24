@@ -18,3 +18,8 @@ In this project, you will found:
 <!-- - **Provide basic services for: `Slugifier`, `Uuid generator`** -->
 - **Run `stress` command hosts**
 - **Provide basic services for: `Slugifier`, `Uuid generator`**
+
+
+## Design Patterns
+
+See [notes on design patterns](documentation/notes-design-pattern.md) for repository pattern, service providers, and other best practices.
