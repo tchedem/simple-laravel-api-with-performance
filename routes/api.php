@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChunkUploadController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\StressController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,27 @@ Route::prefix('upload')->group(function () {
     Route::post('chunk', [ChunkUploadController::class, 'uploadChunk']);
     Route::get('status', [ChunkUploadController::class, 'checkStatus']);
     Route::post('merge', [ChunkUploadController::class, 'mergeChunks']);
+});
+
+// concrete class vs abstracted
+
+// interface + binding (Repository Pattern)
+Route::get('/users', [UserController::class, 'index']);
+Route::post('/users', [UserController::class, 'store']);
+
+
+Route::prefix('experiments')->group(function () {
+
+    // Route::get('/users', function () {
+    //     // Matches The "/experiments/users" URL
+    // });
+
+    // Route::get('/users-lazy-loading', [UserExperiments::class, 'lazyLoading']);
+
+
+    // Route::get('/users-lazy', [UserExperiments::class, 'lazyLoading']);
+    // Route::get('/users-eager', [UserExperiments::class, 'eagerLoading']);
+    // Route::get('/users-nplus1', [UserExperiments::class, 'nPlusOneProblem']);
+    // Route::get('/users-no-nplus1', [UserExperiments::class, 'optimized']);
+
 });
