@@ -6,6 +6,7 @@ use App\Http\Requests\GetUserRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Interfaces\UserRepositoryInterface;
+use App\Services\MailService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -89,5 +90,21 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function sendWelcomeEmail(MailService $mailService)
+    {
+        $policyFile = storage_path('app/policies/user-policy.pdf');
+
+        $sent = $mailService->sendWelcomeMail(
+            email: 'tchedem@example.com',
+            name: 'Tchedem',
+            plan: 'Premium',
+            policyPath: $policyFile
+        );
+
+        return $sent
+            ? "Email sent successfully."
+            : "Email sending failed.";
     }
 }
