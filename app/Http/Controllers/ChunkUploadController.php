@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UploadedFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
@@ -49,7 +50,6 @@ class ChunkUploadController extends Controller
                 'message' => "Chunk {$chunkIndex} uploaded successfully",
                 'chunk_index' => $chunkIndex
             ]);
-
         } catch (\Exception $e) {
             Log::error('Chunk upload error: ' . $e->getMessage());
 
@@ -102,10 +102,99 @@ class ChunkUploadController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
+    // public function mergeChunks(Request $request)
+    // {
+    //     try {
+    //         // Set unlimited execution time for merging
+    //         set_time_limit(0);
+
+    //         $request->validate([
+    //             'upload_id' => 'required|string',
+    //             'filename' => 'required|string',
+    //             'total_chunks' => 'required|integer',
+    //         ]);
+
+    //         $uploadId = $request->input('upload_id');
+    //         $filename = $request->input('filename');
+    //         $totalChunks = $request->input('total_chunks');
+
+    //         // Create safe filename
+    //         $safeFilename = Str::slug(pathinfo($filename, PATHINFO_FILENAME)) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+
+    //         // Final path
+    //         $finalDir = 'uploads';
+    //         $finalPath = "{$finalDir}/{$safeFilename}";
+
+    //         // Ensure uploads directory exists
+    //         Storage::makeDirectory($finalDir);
+
+    //         // Open final file
+    //         $finalFilePath = Storage::path($finalPath);
+    //         $finalFile = fopen($finalFilePath, 'wb');
+
+    //         // Check all chunks are present
+    //         $chunksDir = "chunks/{$uploadId}";
+    //         for ($i = 0; $i < $totalChunks; $i++) {
+    //             $chunkPath = Storage::path("{$chunksDir}/chunk_{$i}");
+
+    //             if (!file_exists($chunkPath)) {
+    //                 fclose($finalFile);
+
+    //                 return response()->json([
+    //                     'success' => false,
+    //                     'message' => "Chunk {$i} is missing. Upload incomplete."
+    //                 ], 400);
+    //             }
+    //         }
+
+    //         // Merge chunks
+    //         for ($i = 0; $i < $totalChunks; $i++) {
+    //             $chunkPath = Storage::path("{$chunksDir}/chunk_{$i}");
+    //             $chunkContent = file_get_contents($chunkPath);
+    //             fwrite($finalFile, $chunkContent);
+
+    //             // Free memory
+    //             unset($chunkContent);
+    //         }
+
+    //         fclose($finalFile);
+
+    //         // Clean up chunks
+    //         Storage::deleteDirectory($chunksDir);
+
+    //         UploadedFile::create([
+    //             'upload_id'     => $uploadId,
+    //             'original_name' => $filename,
+    //             'path'          => $finalPath,
+    //             'size'          => Storage::size($finalPath),
+    //             'status'        => 'completed',
+    //         ]);
+
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'File uploaded and merged successfully',
+    //             'file' => [
+    //                 'name' => $safeFilename,
+    //                 'path' => $finalPath,
+    //                 'url' => Storage::url($finalPath),
+    //                 'size' => Storage::size($finalPath)
+    //             ]
+    //         ]);
+
+    //     } catch (\Exception $e) {
+    //         Log::error('Chunk merge error: ' . $e->getMessage());
+
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Error merging chunks: ' . $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
+
     public function mergeChunks(Request $request)
     {
         try {
-            // Set unlimited execution time for merging
             set_time_limit(0);
 
             $request->validate([
@@ -118,28 +207,24 @@ class ChunkUploadController extends Controller
             $filename = $request->input('filename');
             $totalChunks = $request->input('total_chunks');
 
-            // Create safe filename
-            $safeFilename = Str::slug(pathinfo($filename, PATHINFO_FILENAME)) . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+            $safeFilename = Str::slug(pathinfo($filename, PATHINFO_FILENAME))
+                . '.' . pathinfo($filename, PATHINFO_EXTENSION);
 
-            // Final path
             $finalDir = 'uploads';
-            $finalPath = "{$finalDir}/{$safeFilename}";
-
-            // Ensure uploads directory exists
             Storage::makeDirectory($finalDir);
+            $finalPath = "{$finalDir}/{$safeFilename}";
+            $finalFilePath = Storage::path($finalPath);
 
             // Open final file
-            $finalFilePath = Storage::path($finalPath);
             $finalFile = fopen($finalFilePath, 'wb');
 
-            // Check all chunks are present
             $chunksDir = "chunks/{$uploadId}";
+
+            // Check all chunks exist
             for ($i = 0; $i < $totalChunks; $i++) {
-                $chunkPath = Storage::path("{$chunksDir}/chunk_{$i}");
-
-                if (!file_exists($chunkPath)) {
+                $chunkRelativePath = "{$chunksDir}/chunk_{$i}";
+                if (!Storage::exists($chunkRelativePath)) {
                     fclose($finalFile);
-
                     return response()->json([
                         'success' => false,
                         'message' => "Chunk {$i} is missing. Upload incomplete."
@@ -149,18 +234,24 @@ class ChunkUploadController extends Controller
 
             // Merge chunks
             for ($i = 0; $i < $totalChunks; $i++) {
-                $chunkPath = Storage::path("{$chunksDir}/chunk_{$i}");
-                $chunkContent = file_get_contents($chunkPath);
+                $chunkRelativePath = "{$chunksDir}/chunk_{$i}";
+                $chunkContent = Storage::get($chunkRelativePath);
                 fwrite($finalFile, $chunkContent);
-
-                // Free memory
-                unset($chunkContent);
             }
 
             fclose($finalFile);
 
             // Clean up chunks
             Storage::deleteDirectory($chunksDir);
+
+            // Save to DB
+            UploadedFile::create([
+                'upload_id' => $uploadId,
+                'original_name' => $filename,
+                'path' => $finalPath,
+                'size' => Storage::size($finalPath),
+                'status' => 'completed',
+            ]);
 
             return response()->json([
                 'success' => true,
@@ -172,7 +263,6 @@ class ChunkUploadController extends Controller
                     'size' => Storage::size($finalPath)
                 ]
             ]);
-
         } catch (\Exception $e) {
             Log::error('Chunk merge error: ' . $e->getMessage());
 
@@ -196,5 +286,4 @@ class ChunkUploadController extends Controller
             'upload_id' => $uploadId
         ]);
     }
-
 }

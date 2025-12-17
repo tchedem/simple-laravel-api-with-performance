@@ -18,54 +18,30 @@ use PhpParser\Node\Stmt\Return_;
 |
 */
 
-
-// Route::get('html', function () {
-
-//     return view('home');
-//     return view('services');
-
-// })->name('home');
-
-
-Route::middleware(['throttle:web'])->group(function () {
-
-    Route::get('/', function () {
-
-        return view('learning-lab');
-        return view('home');
-        return view('services');
-
-    })->name('home');
-
+Route::get("/", function (){
+    return response()->json([
+        "message" => "Welcome to performance api app"
+    ]);
 });
 
+// Route::middleware(['throttle:web'])->group(function () {});
 
-// Route::get('/', function () {
-//     return response()->json([
-//         'message' => "Welcome to our API " . env("APP_VERSION", "")
-//     ]);
-//     return view('welcome');
-// });
+Route::get('home', function () { return view('pages.home'); })->name('home');
 
-// Route::get('service')->name('services.index');
-
-// Services
+// TOOLS
 
 // Slugifier
 Route::get('slugifier', [SlugifierController::class, 'create'])->name('slugifier.create');
 Route::post('slugifier', [SlugifierController::class, 'store'])->name('slugifier.store');
 
 Route::get('upload', [FileUploaderController::class, 'create'])->name('upload.create');
+Route::get('uploads', [FileUploaderController::class, 'index'])->name('upload.index');
 
-Route::get('test-upload', function () {
-    return view('test-upload');
-});
+// Services
 
 Route::get('test-tailwind', function () {
-    // return view('test-tailwind-2');
-    return view('test-tailwind');
+    return view('trash.test-tailwind');
 });
-
 
 Route::get('test-queue', [TestSomeQueueFeatureController::class, 'runQueueForSixtySeconds']);
 Route::get('test-failing-queue', [TestSomeQueueFeatureController::class, 'testFailingQueue']);

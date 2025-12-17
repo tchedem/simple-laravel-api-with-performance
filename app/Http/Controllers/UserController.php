@@ -92,7 +92,7 @@ class UserController extends Controller
         //
     }
 
-    public function sendWelcomeEmail(MailService $mailService)
+    public function sendDemoWelcomeNewUserMail(MailService $mailService)
     {
         $policyFile = storage_path('app/policies/user-policy.pdf');
 
@@ -103,8 +103,10 @@ class UserController extends Controller
             policyPath: $policyFile
         );
 
-        return $sent
+        $response = $sent
             ? "Email sent successfully."
             : "Email sending failed.";
+
+        return response()->json($response);
     }
 }

@@ -56,4 +56,8 @@ Route::prefix('experiments')->group(function () {
     // Route::get('/users-nplus1', [UserExperiments::class, 'nPlusOneProblem']);
     // Route::get('/users-no-nplus1', [UserExperiments::class, 'optimized']);
 
+
+    // Mail
+    Route::get('/demo-welcome-new-user-mail', [UserController::class, 'sendDemoWelcomeNewUserMail']);
+
 });
