@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChunkUploadController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\StressController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,12 +36,21 @@ Route::prefix('upload')->group(function () {
     Route::post('merge', [ChunkUploadController::class, 'mergeChunks']);
 });
 
+// Route::apiResource('/tasks', \App\Http\Controllers\TaskController::class);
+Route::prefix('tasks')->group(function () {
+    Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
+    Route::post('/', [TaskController::class, 'store'])->name('tasks.store');
+    Route::get('/{uuid}', [TaskController::class, 'show'])->name('tasks.show');
+    Route::put('/{uuid}', [TaskController::class, 'update'])->name('tasks.update');
+    Route::patch('/{uuid}', [TaskController::class, 'partialUpdate'])->name('tasks.partial.update');
+    Route::delete('/{uuid}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+});
+
 // concrete class vs abstracted
 
 // interface + binding (Repository Pattern)
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'store']);
-
 
 Route::prefix('experiments')->group(function () {
 

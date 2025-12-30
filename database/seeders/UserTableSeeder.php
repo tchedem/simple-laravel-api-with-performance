@@ -18,12 +18,18 @@ class UserTableSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             // 'is_admin' => true,
+            'email_verified_at' => now(),
             'password' => bcrypt('password'),
         ];
 
-        \App\Models\User::create($admin);
+        $checkAdminUser = \App\Models\User::where('email', $admin['email'])->first();
 
-        \App\Models\User::factory(100)->create();
+        if (!$checkAdminUser) {
+            // Create the admin User
+            \App\Models\User::create($admin);
+        }
+
+        \App\Models\User::factory(10)->create();
 
     }
 }

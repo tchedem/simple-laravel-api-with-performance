@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class PostTableSeeder extends Seeder
+class TaskTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,14 +17,15 @@ class PostTableSeeder extends Seeder
         foreach ($users as $user) {
 
             for ($i = 0; $i < 10; $i++) {
-                \App\Models\Post::create([
-                    'user_id' => $user->id,
+                \App\Models\Task::create([
+                    'id' => \Illuminate\Support\Str::uuid()->toString(),
                     'title' => fake()->sentence(),
-                    'body' => fake()->paragraph(),
+                    'description' => fake()->sentence(),
+                    'assigned_to' => $user->id,
+                    'user_id' => $user->id,
                 ]);
             }
 
         }
-
     }
 }

@@ -6,14 +6,13 @@ use App\Http\Requests\GetUserRequest;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 
-// class UserRepository
 class UserRepository implements UserRepositoryInterface
 {
     // Repository methods for User model
 
-    public function getUsers(GetUserRequest $getUserRequest): \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection
+    // public function getUsers(GetUserRequest $getUserRequest): \Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Collection
+    public function getUsers(GetUserRequest $getUserRequest)
     {
-
         $paginate = $getUserRequest->boolean('paginate', false);
         $per_page = $getUserRequest->input('perPage', User::PER_PAGE);
 

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -29,6 +30,18 @@ class User extends Authenticatable
 
     protected $guarded = [];
 
+    public const ADMIN_CORE_ROLES = 'admin';
+    public const USER_CORE_ROLES = 'user';
+    public const EDITOR_CORE_ROLES = 'editor';
+    public const VIEWER_CORE_ROLES = 'viewer';
+
+    public const CORE_ROLES = [
+        self::ADMIN_CORE_ROLES,
+        self::USER_CORE_ROLES,
+        self::EDITOR_CORE_ROLES,
+        self::VIEWER_CORE_ROLES,
+    ];
+
     protected $table = 'users';
 
     // protected $primaryKey = 'id';
@@ -41,7 +54,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'email',
+        // 'id',
+        // 'email',
         'password',
         'remember_token',
     ];
@@ -61,5 +75,9 @@ class User extends Authenticatable
         return $this->hasMany(Post::class, 'user_id', 'id', 'posts');
     }
 
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
 
 }
